@@ -22,10 +22,10 @@ tuning** for both graph models.
 
 | Model | Abilene (11 nodes, 110 flows) | GÉANT (23 nodes, 506 flows) |
 |---|---|---|
-| LSTM | 1.017 ± 0.003 | ~1.28 |
-| AC-LSTM | 1.012 ± 0.002 | ~1.22 |
-| **DCRNN** (tuned, static graph) | **0.802 ± 0.002** | **~0.66** *(final 5-seed TBD)* |
-| DyGCN-AC-LSTM (dynamic graph) | 0.815 ± 0.004 | ~0.73 *(final 5-seed TBD)* |
+| LSTM | 1.017 ± 0.003 | 1.287 ± 0.007 |
+| AC-LSTM | 1.012 ± 0.002 | 1.233 ± 0.012 |
+| **DCRNN** (tuned, static graph) | **0.802 ± 0.002** | **0.660 ± 0.010** |
+| DyGCN-AC-LSTM (dynamic graph) | 0.815 ± 0.004 | 0.728 ± 0.011 |
 
 Tuned DCRNN wins on every seed, on both datasets — and on Abilene it does so with
 **fewer parameters** (hidden 64 vs 256). The effect is consistent, not noise.
