@@ -24,15 +24,14 @@ times the seed noise. Note: DCRNN wins with hidden=64 vs the proposed model's
 256 — fewer parameters, better result.
 
 ## GEANT (23 nodes, 506 flows) — consistent with Abilene
-Same pattern, wider margin. Tuned DCRNN clearly ahead; temporal baselines far
-behind. (Fill in final 5-seed mean ± std from the run output:)
+Same pattern, wider margin — tuned DCRNN beats the proposed model on all 5 seeds.
 
 | Model                | RMSE (mean ± std) |
 |----------------------|-------------------|
-| LSTM                 | ~1.28             |
-| AC-LSTM              | ~1.22             |
-| DCRNN (tuned, static)| ~0.66  [FILL]     |
-| DyGCN-AC-LSTM        | ~0.73  [FILL]     |
+| LSTM                 | 1.287 ± 0.007     |
+| AC-LSTM              | 1.233 ± 0.012     |
+| DCRNN (tuned, static)| **0.660 ± 0.010** |
+| DyGCN-AC-LSTM        | 0.728 ± 0.011     |
 
 ## What this means
 - The "dynamic graph beats static graph" claim for backbone TM prediction does
