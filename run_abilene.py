@@ -91,6 +91,9 @@ def main():
     ap.add_argument("--min-active-frac", type=float, default=0.5)
     ap.add_argument("--max-steps", type=int, default=None, help="use only first N timesteps (tractability)")
     ap.add_argument("--log-transform", action="store_true", help="log1p traffic (recommended for real data)")
+    ap.add_argument("--tune-proposed", action="store_true",
+                    help="also run the same 4-config validation search for DyGCN-AC-LSTM "
+                         "(default off = paper Table 1 protocol: only DCRNN is tuned)")
     ap.add_argument("--epochs", type=int, default=30)
     ap.add_argument("--seeds", type=int, nargs="+", default=CFG["SEEDS"])
     a = ap.parse_args()
@@ -108,11 +111,14 @@ def main():
 
     # --- tune BOTH graph models equally on the first seed's validation split ---
     F0, sets0, amap0, sadj0 = prepare(TM, meta, CFG["SEEDS"][0])
-    print("Equal-budget validation tuning (4 configs each, frozen test):")
+    print("Validation tuning (frozen test):" + (" DCRNN + DyGCN, 4 configs each" if a.tune_proposed else " DCRNN only, DyGCN at default"))
     dc_h, dc_K = tune("DCRNN", lambda h, k: DCRNN(hidden=h, K=k, layers=2, horizon=CFG["HOR"]),
                       [(h, k) for h in (32, 64) for k in (2, 3)], sets0, amap0, sadj0, True)
-    dy_h, dy_K = tune("DyGCN", lambda h, k: DyGCNACLSTM(h, CFG["G"], k, CFG["HOR"]),
-                      [(h, k) for h in (128, 256) for k in (2, 3)], sets0, amap0, None, True)
+    if a.tune_proposed:
+        dy_h, dy_K = tune("DyGCN", lambda h, k: DyGCNACLSTM(h, CFG["G"], k, CFG["HOR"]),
+                          [(h, k) for h in (32, 64) for k in (2, 3)], sets0, amap0, None, True)
+    else:
+        dy_h, dy_K = CFG["HIDDEN"], CFG["DIFF_K"]     # default config (paper Table 1)
     print()
 
     results = {k: [] for k in ["LSTM", "AC-LSTM", "DCRNN", "DyGCN-AC-LSTM"]}
@@ -125,7 +131,7 @@ def main():
         results["DyGCN-AC-LSTM"].append(fit_eval(DyGCNACLSTM(dy_h, CFG["G"], dy_K, CFG["HOR"]), sets, amap, True)["RMSE"])
         for name in results:
             print(f"seed {seed} {name:16s} RMSE {results[name][-1]:.4f}")
-    print("\n=== Abilene: RMSE mean +/- std over seeds (BOTH graph models tuned) ===")
+    print("\n=== RMSE mean +/- std over seeds ===")
     print(f"(DCRNN: hidden={dc_h},K={dc_K} | DyGCN: hidden={dy_h},K={dy_K})")
     for name, vals in results.items():
         v = np.array(vals); print(f"{name:16s} {v.mean():.4f} +/- {v.std():.4f}")
