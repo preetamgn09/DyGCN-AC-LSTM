@@ -86,8 +86,11 @@ def load_abilene(path, values_per_flow=1, value_col=0, has_diagonal=None,
         off = [(i, j) for i in range(N) for j in range(N) if i != j]
         for k, (i, j) in enumerate(off):
             G[:, i, j] = M[:, k]
+    N_orig = N
+    node_ids = list(range(N))                      # original index of each kept node
     if drop_node is not None:
         keep = [i for i in range(N) if i != drop_node]
+        node_ids = keep
         G = G[:, keep][:, :, keep]
         N -= 1
     # flatten off-diagonal OD flows
@@ -103,9 +106,11 @@ def load_abilene(path, values_per_flow=1, value_col=0, has_diagonal=None,
     # filter unstable/dead flows
     active = (np.abs(TM) > 1e-9).mean(axis=0)
     keep = active >= min_active_frac
+    flow_pairs = [(node_ids[i], node_ids[j]) for (i, j), k in zip(off, keep) if k]
     dropped = int((~keep).sum())
     TM = TM[:, keep]
     meta = {"N_nodes": N, "F": TM.shape[1], "T": T, "log_transform": log_transform,
+            "N_orig": N_orig, "flow_pairs_orig": flow_pairs,
             "flows_dropped_unstable": dropped, "has_diagonal": has_diagonal,
             "steps_per_day": int(round(1440 / sample_min))}  # 5-min->288, 15-min->96
     return TM, meta

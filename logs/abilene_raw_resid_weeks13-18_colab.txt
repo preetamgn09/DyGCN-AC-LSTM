@@ -1,0 +1,71 @@
+# Command (Google Colab, NVIDIA T4 GPU)
+!python run_v3.py --path Abilene_TM.csv --rm abilene_rm.csv --drop-node 0 --sample-min 5 --start-step 24192 --max-steps 12096 --target raw --residual --models Linear AC-LSTM DCRNN DyGCN-AC-LSTM DyGCN-static --outdir /content/drive/MyDrive/dygcn_v3
+
+# Output
+device: cuda | run: Abilene_TM_raw_resid_start24192_v3 | models: ['Linear', 'AC-LSTM', 'DCRNN', 'DyGCN-AC-LSTM', 'DyGCN-static']
+F=110 | windows train/val/test = 327/75/100 | routing links: 50
+  Persistence            own RMSE 0.8064 | raw-z RMSE 0.8064 | link WAPE 0.099
+  Seasonal-naive         own RMSE 1.0187 | raw-z RMSE 1.0187 | link WAPE 0.157
+  Training-mean          own RMSE 1.0471 | raw-z RMSE 1.0471 | link WAPE 0.213
+  [tune Linear] (0,0) val 0.7439 [0.7439]
+  [tune AC-LSTM] (32,0) val 0.7604 [0.7604]
+  [tune AC-LSTM] (64,0) val 0.7584 [0.7584]
+  [tune DCRNN] (32,2) val 0.6798 [0.6798]
+  [tune DCRNN] (32,3) val 0.6809 [0.6809]
+  [tune DCRNN] (64,2) val 0.6820 [0.682]
+  [tune DCRNN] (64,3) val 0.6878 [0.6878]
+  [tune DyGCN-AC-LSTM] (32,2) val 0.7057 [0.7057]
+  [tune DyGCN-AC-LSTM] (32,3) val 0.6896 [0.6896]
+  [tune DyGCN-AC-LSTM] (64,2) val 0.6846 [0.6846]
+  [tune DyGCN-AC-LSTM] (64,3) val 0.6833 [0.6833]
+selected: {'Linear': (0, 0), 'AC-LSTM': (64, 0), 'DCRNN': (32, 2), 'DyGCN-AC-LSTM': (64, 3), 'DyGCN-static': (64, 3)}
+seed 42 Linear             own 0.8121 raw-z 0.8121 linkWAPE 0.117  (0s)
+seed 42 AC-LSTM            own 0.8092 raw-z 0.8092 linkWAPE 0.103  (8s)
+seed 42 DCRNN              own 0.7209 raw-z 0.7209 linkWAPE 0.093  (16s)
+seed 42 DyGCN-AC-LSTM      own 0.7159 raw-z 0.7159 linkWAPE 0.098  (121s)
+seed 42 DyGCN-static       own 0.7186 raw-z 0.7186 linkWAPE 0.096  (119s)
+seed 123 Linear             own 0.7736 raw-z 0.7736 linkWAPE 0.107  (0s)
+seed 123 AC-LSTM            own 0.8073 raw-z 0.8073 linkWAPE 0.103  (8s)
+seed 123 DCRNN              own 0.7180 raw-z 0.7180 linkWAPE 0.091  (16s)
+seed 123 DyGCN-AC-LSTM      own 0.7222 raw-z 0.7222 linkWAPE 0.095  (121s)
+seed 123 DyGCN-static       own 0.7213 raw-z 0.7213 linkWAPE 0.094  (119s)
+seed 456 Linear             own 0.7755 raw-z 0.7755 linkWAPE 0.103  (0s)
+seed 456 AC-LSTM            own 0.8112 raw-z 0.8112 linkWAPE 0.105  (8s)
+seed 456 DCRNN              own 0.7205 raw-z 0.7205 linkWAPE 0.092  (17s)
+seed 456 DyGCN-AC-LSTM      own 0.7227 raw-z 0.7227 linkWAPE 0.099  (122s)
+seed 456 DyGCN-static       own 0.7217 raw-z 0.7217 linkWAPE 0.095  (116s)
+seed 789 Linear             own 0.7716 raw-z 0.7716 linkWAPE 0.107  (0s)
+seed 789 AC-LSTM            own 0.8082 raw-z 0.8082 linkWAPE 0.104  (8s)
+seed 789 DCRNN              own 0.7225 raw-z 0.7225 linkWAPE 0.092  (16s)
+seed 789 DyGCN-AC-LSTM      own 0.7204 raw-z 0.7204 linkWAPE 0.094  (121s)
+seed 789 DyGCN-static       own 0.7219 raw-z 0.7219 linkWAPE 0.094  (119s)
+seed 1024 Linear             own 0.7910 raw-z 0.7910 linkWAPE 0.121  (0s)
+seed 1024 AC-LSTM            own 0.8080 raw-z 0.8080 linkWAPE 0.103  (8s)
+seed 1024 DCRNN              own 0.7205 raw-z 0.7205 linkWAPE 0.091  (16s)
+seed 1024 DyGCN-AC-LSTM      own 0.7203 raw-z 0.7203 linkWAPE 0.102  (120s)
+seed 1024 DyGCN-static       own 0.7201 raw-z 0.7201 linkWAPE 0.096  (117s)
+
+=== Abilene_TM_raw_resid_start24192_v3 ===
+model                  own RMSE          raw-z RMSE   MASE   linkWAPE  bottleneck  underprov@10%
+Persistence            0.8064            0.8064       1.627   0.099     0.074       0.240
+Seasonal-naive         1.0187            1.0187       2.147   0.157     0.122       0.278
+Training-mean          1.0471            1.0471       2.568   0.213     0.167       0.521
+Linear                 0.7848+/-0.0171   0.7848       1.672   0.111     0.089       0.263
+AC-LSTM                0.8088+/-0.0015   0.8088       1.660   0.104     0.075       0.228
+DCRNN                  0.7205+/-0.0016   0.7205       1.516   0.092     0.068       0.264
+DyGCN-AC-LSTM          0.7203+/-0.0027   0.7203       1.539   0.097     0.069       0.224
+DyGCN-static           0.7207+/-0.0014   0.7207       1.538   0.095     0.067       0.216
+
+Paired seed tests vs DyGCN-AC-LSTM (Holm):
+  DyGCN-AC-LSTM - DCRNN: -0.0002 [-0.0047,+0.0043] p_holm=1.0000
+  DyGCN-AC-LSTM - DyGCN-static: -0.0004 [-0.0025,+0.0016] p_holm=1.0000
+  DyGCN-AC-LSTM - Linear: -0.0645 [-0.0888,-0.0402] p_holm=0.0054
+  DyGCN-AC-LSTM - AC-LSTM: -0.0885 [-0.0923,-0.0847] p_holm=0.0000
+Compute (params | train s/seed | ms/window | peak MB):
+  Linear                   156 |       0 |   0.36 |      22
+  AC-LSTM               97,262 |       8 |   1.04 |      23
+  DCRNN                 56,289 |      16 |   3.44 |     631
+  DyGCN-AC-LSTM        249,409 |     121 |  22.92 |    2767
+  DyGCN-static         249,409 |     118 |  23.13 |    2735
+
+saved /content/drive/MyDrive/dygcn_v3/Abilene_TM_raw_resid_start24192_v3.json

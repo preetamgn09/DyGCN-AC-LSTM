@@ -1,0 +1,106 @@
+# Command (Google Colab, NVIDIA T4 GPU)
+!python run_v3.py --path Abilene_TM.csv --rm abilene_rm.csv --drop-node 0 --sample-min 5 --max-steps 12096 --target raw --outdir /content/drive/MyDrive/dygcn_v3
+
+# Output
+device: cuda | run: Abilene_TM_raw_abs_v3 | models: ['Linear', 'LSTM', 'AC-LSTM', 'DCRNN', 'STGCN', 'GWN', 'DyGCN-AC-LSTM', 'DyGCN-static']
+/content/v3/DYGLSTM_v3/src/adjacency.py:59: RuntimeWarning: divide by zero encountered in power
+  dinv = np.where(deg > 0, deg ** -0.5, 0.0)
+F=110 | windows train/val/test = 327/75/100 | routing links: 50
+  Persistence            own RMSE 0.6981 | raw-z RMSE 0.6981 | link WAPE 0.212
+  Seasonal-naive         own RMSE 1.4268 | raw-z RMSE 1.4268 | link WAPE 0.472
+  Training-mean          own RMSE 1.1846 | raw-z RMSE 1.1846 | link WAPE 0.558
+  [tune Linear] (0,0) val 0.6721 [0.6721]
+  [tune LSTM] (32,0) val 0.7305 [0.7305]
+  [tune LSTM] (64,0) val 0.6653 [0.6653]
+  [tune AC-LSTM] (32,0) val 0.6807 [0.6807]
+  [tune AC-LSTM] (64,0) val 0.6572 [0.6572]
+  [tune DCRNN] (32,2) val 0.5222 [0.5222]
+  [tune DCRNN] (32,3) val 0.5227 [0.5227]
+  [tune DCRNN] (64,2) val 0.5177 [0.5177]
+  [tune DCRNN] (64,3) val 0.5159 [0.5159]
+  [tune STGCN] (32,2) val 0.5213 [0.5213]
+  [tune STGCN] (32,3) val 0.5160 [0.516]
+  [tune STGCN] (64,2) val 0.5067 [0.5067]
+  [tune STGCN] (64,3) val 0.5068 [0.5068]
+  [tune GWN] (16,1) val 0.5166 [0.5166]
+  [tune GWN] (16,2) val 0.5193 [0.5193]
+  [tune GWN] (32,1) val 0.5116 [0.5116]
+  [tune GWN] (32,2) val 0.5109 [0.5109]
+  [tune DyGCN-AC-LSTM] (32,2) val 0.5404 [0.5404]
+  [tune DyGCN-AC-LSTM] (32,3) val 0.5284 [0.5284]
+  [tune DyGCN-AC-LSTM] (64,2) val 0.5214 [0.5214]
+  [tune DyGCN-AC-LSTM] (64,3) val 0.5230 [0.523]
+selected: {'Linear': (0, 0), 'LSTM': (64, 0), 'AC-LSTM': (64, 0), 'DCRNN': (64, 3), 'STGCN': (64, 2), 'GWN': (32, 2), 'DyGCN-AC-LSTM': (64, 2), 'DyGCN-static': (64, 2)}
+seed 42 Linear             own 0.8763 raw-z 0.8763 linkWAPE 0.465  (0s)
+seed 42 LSTM               own 1.0515 raw-z 1.0515 linkWAPE 0.351  (1s)
+seed 42 AC-LSTM            own 1.0455 raw-z 1.0455 linkWAPE 0.358  (8s)
+seed 42 DCRNN              own 0.8719 raw-z 0.8719 linkWAPE 0.245  (31s)
+seed 42 STGCN              own 0.8042 raw-z 0.8042 linkWAPE 0.241  (12s)
+seed 42 GWN                own 0.8569 raw-z 0.8569 linkWAPE 0.211  (12s)
+seed 42 DyGCN-AC-LSTM      own 0.8868 raw-z 0.8868 linkWAPE 0.234  (81s)
+seed 42 DyGCN-static       own 0.8891 raw-z 0.8891 linkWAPE 0.224  (79s)
+seed 123 Linear             own 0.7855 raw-z 0.7855 linkWAPE 0.576  (0s)
+seed 123 LSTM               own 1.0561 raw-z 1.0561 linkWAPE 0.359  (1s)
+seed 123 AC-LSTM            own 1.0522 raw-z 1.0522 linkWAPE 0.360  (8s)
+seed 123 DCRNN              own 0.8667 raw-z 0.8667 linkWAPE 0.247  (31s)
+seed 123 STGCN              own 0.8032 raw-z 0.8032 linkWAPE 0.231  (12s)
+seed 123 GWN                own 0.8601 raw-z 0.8601 linkWAPE 0.216  (12s)
+seed 123 DyGCN-AC-LSTM      own 0.8853 raw-z 0.8853 linkWAPE 0.242  (82s)
+seed 123 DyGCN-static       own 0.8889 raw-z 0.8889 linkWAPE 0.245  (79s)
+seed 456 Linear             own 0.7564 raw-z 0.7564 linkWAPE 0.357  (0s)
+seed 456 LSTM               own 1.0526 raw-z 1.0526 linkWAPE 0.367  (1s)
+seed 456 AC-LSTM            own 1.0473 raw-z 1.0473 linkWAPE 0.356  (8s)
+seed 456 DCRNN              own 0.8653 raw-z 0.8653 linkWAPE 0.242  (31s)
+seed 456 STGCN              own 0.8064 raw-z 0.8064 linkWAPE 0.239  (12s)
+seed 456 GWN                own 0.8538 raw-z 0.8538 linkWAPE 0.213  (12s)
+seed 456 DyGCN-AC-LSTM      own 0.8839 raw-z 0.8839 linkWAPE 0.236  (80s)
+seed 456 DyGCN-static       own 0.8860 raw-z 0.8860 linkWAPE 0.235  (78s)
+seed 789 Linear             own 0.6916 raw-z 0.6916 linkWAPE 0.356  (0s)
+seed 789 LSTM               own 1.0561 raw-z 1.0561 linkWAPE 0.359  (1s)
+seed 789 AC-LSTM            own 1.0443 raw-z 1.0443 linkWAPE 0.355  (8s)
+seed 789 DCRNN              own 0.8696 raw-z 0.8696 linkWAPE 0.243  (31s)
+seed 789 STGCN              own 0.8268 raw-z 0.8268 linkWAPE 0.237  (12s)
+seed 789 GWN                own 0.8537 raw-z 0.8537 linkWAPE 0.215  (12s)
+seed 789 DyGCN-AC-LSTM      own 0.8807 raw-z 0.8807 linkWAPE 0.231  (80s)
+seed 789 DyGCN-static       own 0.8829 raw-z 0.8829 linkWAPE 0.231  (77s)
+seed 1024 Linear             own 0.7170 raw-z 0.7170 linkWAPE 0.345  (0s)
+seed 1024 LSTM               own 1.0513 raw-z 1.0513 linkWAPE 0.375  (1s)
+seed 1024 AC-LSTM            own 1.0497 raw-z 1.0497 linkWAPE 0.359  (8s)
+seed 1024 DCRNN              own 0.8692 raw-z 0.8692 linkWAPE 0.245  (31s)
+seed 1024 STGCN              own 0.8158 raw-z 0.8158 linkWAPE 0.233  (12s)
+seed 1024 GWN                own 0.8532 raw-z 0.8532 linkWAPE 0.219  (12s)
+seed 1024 DyGCN-AC-LSTM      own 0.8789 raw-z 0.8789 linkWAPE 0.235  (79s)
+seed 1024 DyGCN-static       own 0.8833 raw-z 0.8833 linkWAPE 0.234  (77s)
+
+=== Abilene_TM_raw_abs_v3 ===
+model                  own RMSE          raw-z RMSE   MASE   linkWAPE  bottleneck  underprov@10%
+Persistence            0.6981            0.6981       1.272   0.212     0.354       0.176
+Seasonal-naive         1.4268            1.4268       2.450   0.472     0.704       0.295
+Training-mean          1.1846            1.1846       3.396   0.558     0.435       0.771
+Linear                 0.7653+/-0.0717   0.7653       1.872   0.419     0.714       0.568
+LSTM                   1.0535+/-0.0024   1.0535       2.159   0.362     0.250       0.601
+AC-LSTM                1.0478+/-0.0032   1.0478       2.139   0.357     0.245       0.592
+DCRNN                  0.8685+/-0.0026   0.8685       1.317   0.244     0.200       0.335
+STGCN                  0.8113+/-0.0100   0.8113       1.316   0.236     0.200       0.337
+GWN                    0.8555+/-0.0029   0.8555       1.267   0.214     0.250       0.249
+DyGCN-AC-LSTM          0.8831+/-0.0032   0.8831       1.321   0.236     0.183       0.304
+DyGCN-static           0.8860+/-0.0030   0.8860       1.324   0.234     0.183       0.293
+
+Paired seed tests vs DyGCN-AC-LSTM (Holm):
+  DyGCN-AC-LSTM - DCRNN: +0.0146 [+0.0095,+0.0197] p_holm=0.0040
+  DyGCN-AC-LSTM - STGCN: +0.0718 [+0.0560,+0.0877] p_holm=0.0009
+  DyGCN-AC-LSTM - GWN: +0.0276 [+0.0247,+0.0304] p_holm=0.0001
+  DyGCN-AC-LSTM - DyGCN-static: -0.0029 [-0.0042,-0.0016] p_holm=0.0064
+  DyGCN-AC-LSTM - Linear: +0.1178 [+0.0323,+0.2033] p_holm=0.0187
+  DyGCN-AC-LSTM - AC-LSTM: -0.1647 [-0.1703,-0.1591] p_holm=0.0000
+Compute (params | train s/seed | ms/window | peak MB):
+  Linear                   156 |       0 |   0.25 |      21
+  LSTM                 164,136 |       1 |   0.12 |      43
+  AC-LSTM               97,262 |       8 |   1.08 |      24
+  DCRNN                371,393 |      31 |   5.04 |    1776
+  STGCN                 89,580 |      12 |   0.85 |    1771
+  GWN                  163,556 |      12 |   1.21 |     701
+  DyGCN-AC-LSTM        150,081 |      80 |  15.45 |    1843
+  DyGCN-static         150,081 |      78 |  15.32 |    1799
+
+saved /content/drive/MyDrive/dygcn_v3/Abilene_TM_raw_abs_v3.json

@@ -101,7 +101,7 @@ def flow_features(raw_train, steps_per_day):
     return (feats - feats.mean(0)) / (feats.std(0) + 1e-9)
 
 
-def preprocess(raw, train_end, c=4, alpha0=0.3, seed=42, steps_per_day=96):
+def preprocess(raw, train_end, c=4, alpha0=0.3, seed=42, steps_per_day=96, smooth=True):
     """Full pipeline. raw: [T, F]. train_end: index where train split ends.
     Returns (denoised_z [T,F], info dict with mu/sigma/U/alpha).
     """
@@ -112,7 +112,7 @@ def preprocess(raw, train_end, c=4, alpha0=0.3, seed=42, steps_per_day=96):
     U = fuzzy_cmeans(feats, c=c, seed=seed)                # [F, c]
     max_mem = U.max(axis=1)                               # [F]
     alpha = alpha0 * (1.0 + max_mem) / 2.0                # [F], in (alpha0/2, alpha0]
-    s = wes_denoise(z, alpha)
+    s = wes_denoise(z, alpha) if smooth else z.copy()   # smooth=False -> raw (log, z-scored) target
     info = {"mu": mu, "sigma": sigma, "U": U, "alpha": alpha, "max_mem": max_mem}
     return s, info
 
